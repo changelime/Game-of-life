@@ -1,0 +1,88 @@
+html,body
+{
+    margin: 0px;
+    padding: 0px;
+    width: 100vw;
+    height: 100vh;
+    background-color: saddlebrown;
+}
+#react-root
+{
+    width: inherit;
+    height: inherit;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#matrix
+{
+
+}
+.matrix-row
+{
+    padding: 0px;
+    margin: 0px;
+    list-style-type: none;
+}
+.cell
+{
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    transition: background-color 0.2s;
+}
+.cell.die
+{
+    background-color: black;
+}
+.cell.live
+{
+    background-color: white;
+}
+.button-group
+{
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.button-group button, .button-group input
+{
+    margin: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border: 1px white solid;
+    border-radius: 5px;
+    text-align: center;
+    color: white;
+    
+}
+.button-group button
+{
+    margin: 10px;
+    width: 100px;
+    height: 30px;
+    cursor: pointer;
+    transition: all 0.5s;
+}
+.button-group input
+{
+    width: 70px;
+    height: 30px;
+}
+.button-group button:hover
+{
+    background-color: rgba(255, 255, 255, 0.2);
+    color: black;
+}
+input[type="number"] {
+    position: relative;
+}
+input[type="number"]::-webkit-outer-spin-button, 
+input[type="number"]::-webkit-inner-spin-button {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 1;
+}
