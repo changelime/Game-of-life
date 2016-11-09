@@ -37,6 +37,7 @@ module.exports = function(config) {
     webpackMiddleware: {
       noInfo: true
     },
+    singleRun: true,
     // tell karma all the plugins we're going to be using to prevent warnings
     plugins: [
       'karma-mocha',
