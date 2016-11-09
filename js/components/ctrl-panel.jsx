@@ -10,7 +10,7 @@ class CtrlPanel extends Component {
     }
     nextStep(){
         let {next, cells, livesCells, size} = this.props;
-        next({cells, livesCells}, size);
+        next(cells, livesCells, size);
     }
     nextNStep(steps){
         let nextStep = this.nextStep.bind(this);
@@ -18,7 +18,7 @@ class CtrlPanel extends Component {
             nextStep();
             if( --steps > 0 )
             {
-                setTimeout(run, 200);
+                requestAnimationFrame(run);
             }
         })();
     }
@@ -27,7 +27,6 @@ class CtrlPanel extends Component {
         init(size);
     }
     render () {
-        let {init} = this.props;
         return (<div id="ctrl-panel">
                     <div className="button-group"> 
                         <Button onClick={this.reset.bind(this)}  label="Reset" />
@@ -58,8 +57,8 @@ function mapDispatchToProps(dispatch) {
         dispatch(setCells(cells));
         dispatch(setLivesCells(livesCells));
     },
-    next: function next({cells, livesCells}, size){
-        let result = nextStepOfcells({cells, livesCells}, size);
+    next: function next(cells, livesCells, size){
+        let result = nextStepOfcells(cells, livesCells, size);
         dispatch(setCells(result.cells));
         dispatch(setLivesCells(result.livesCells));
     }

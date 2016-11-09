@@ -53,48 +53,41 @@ export function getLivesCount(cells){
     }, 0);
 };
 export function getCoorStr(coor){
-    return JSON.stringify(coor);
+    return `x:${coor.x},y:${coor.y}`;
 };
-export function nextStepOfcells({cells, livesCells}, size){
+export function nextStepOfcells(cells, livesCells, size){
     let {row, col} = size;
-    let newCells = [...cells];//.map(()=>STATUS_DIE);
-    let newLivecellsIndex = {};
+    let newCells = [...cells];
     let newLivecells = [];
-    livesCells.forEach((cell)=>{
+    let calculated = {};//标记已经计算过的节点
+    for( let i = 0; i < livesCells.length; i++ )
+    {
+        let cell = livesCells[i];
         let {x, y} = cell;
+        let index = y * col + x;
         let neighbors = getNeighbors(cells, x, y, size);
         let lives = getLivesCount(neighbors);
-        newCells[y * col + x] = STATUS_DIE;
+        newCells[index] = STATUS_DIE;//原来存活状态的节点默认先置为死亡
         if( lives === 2 || lives === 3 )
         {
-            newLivecellsIndex[getCoorStr(cell)] = cell;
+            newCells[index] = STATUS_LIVE;//周围为2或3个存活节点，节点为存活
+            newLivecells.push(cell);
         }
-        neighbors.forEach((neighbor)=>{
-            let {x, y} = neighbor.coor;
-            let nn = getNeighbors(cells, x, y, size);
-            let lives = getLivesCount(nn);
-            if( neighbor.el === STATUS_DIE )
-            {
-                if(lives === 3 )
-                {
-                    newLivecellsIndex[getCoorStr(neighbor.coor)] = neighbor.coor;
-                }
-            }
-            else
-            {
-                if( lives === 2 || lives === 3 )
-                {
-                    newLivecellsIndex[getCoorStr(neighbor.coor)] = neighbor.coor;
-                }
-            }
+        
+        neighbors.filter((e)=>{
+            return e.el === STATUS_DIE && !calculated[getCoorStr(e.coor)];//确保遍历道德周围邻居都是死亡而且没有被标记过
+        }).forEach((neighbor)=>{
+            let coor = neighbor.coor;
+            let {x, y} = coor;
+            let index = y * col + x;
+            let lives = getLivesCount(getNeighbors(cells, x, y, size));
+            calculated[getCoorStr(coor)] = true;//标记已经计算过的节点
+            if(lives === 3 )
+            {                
+                newLivecells.push(coor);
+                newCells[index] = STATUS_LIVE;
+            } 
         });
-    });
-    for( let key in newLivecellsIndex )
-    {
-        let coor = newLivecellsIndex[key];
-        let {x, y} = coor;
-        newCells[y * col + x] = STATUS_LIVE;
-        newLivecells.push(coor);
     }
     return {
         cells: newCells,

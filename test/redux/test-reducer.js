@@ -8,7 +8,8 @@ describe("cellsReducer test", function() {
             col: 5,
             row: 5
         },
-        cells: []
+        cells: [],
+        livesCells: []
     };
     it("Input a empty action return default state", function() {
         let newState = reducer(defaultState, {});
