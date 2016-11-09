@@ -1,7 +1,7 @@
 # Game of life
 
 
-### Based on react and redux
+### Game of life based on react and redux and canvas 2d
 
 
 ## Run
