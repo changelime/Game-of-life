@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { createCells, nextStepOfcells } from "utils/utils";
-import { setCells} from "actions/index.js";
+import { setCells, setLivesCells} from "actions/index.js";
 import Button from "components/button";
 import NumberButton from "components/number-button";
 class CtrlPanel extends Component {
@@ -9,8 +9,8 @@ class CtrlPanel extends Component {
         super(props, context);
     }
     nextStep(){
-        let {next, cells, size} = this.props;
-        next(cells, size);
+        let {next, cells, livesCells, size} = this.props;
+        next({cells, livesCells}, size);
     }
     nextNStep(steps){
         let nextStep = this.nextStep.bind(this);
@@ -45,6 +45,7 @@ class CtrlPanel extends Component {
 }
 function mapStateToProps(state) {
   return {
+    livesCells: state.livesCells,
     cells: state.cells,
     size: state.size
   }
@@ -53,12 +54,14 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     init: function init(size){
-        let cells = createCells(size);
+        let {cells, livesCells} = createCells(size);
         dispatch(setCells(cells));
+        dispatch(setLivesCells(livesCells));
     },
-    next: function next(cells, size){
-        cells = nextStepOfcells(cells, size);
-        dispatch(setCells(cells));
+    next: function next({cells, livesCells}, size){
+        let result = nextStepOfcells({cells, livesCells}, size);
+        dispatch(setCells(result.cells));
+        dispatch(setLivesCells(result.livesCells));
     }
   }
 }

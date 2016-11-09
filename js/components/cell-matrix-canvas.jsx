@@ -7,8 +7,8 @@ class CellMatrixCanvas extends Component {
     }
     componentDidUpdate(prevProps, prevState)
     {
-        let {cells, size} = this.props;
-        drawCells(this.refs.canvas, cells, size);
+        let {livesCells, size} = this.props;
+        drawCells(this.refs.canvas, livesCells, size);
     }
     render () {
         return (<canvas width="800" height="800" ref="canvas" ></canvas>);
@@ -16,7 +16,7 @@ class CellMatrixCanvas extends Component {
 }
 function mapStateToProps(state) {
   return {
-    cells: state.cells,
+    livesCells: state.livesCells,
     size: state.size
   }
 }

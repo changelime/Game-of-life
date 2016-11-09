@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import {setCells} from "actions/index.js";
+import {setCells, setLivesCells} from "actions/index.js";
 import { createCells } from "utils/utils";
 import CellMatrixCanvas from "components/cell-matrix-canvas";
 import CtrlPanel from "components/ctrl-panel";
@@ -26,8 +26,9 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     init: function init(size){
-        let cells = createCells(size);
+        let {cells, livesCells} = createCells(size);
         dispatch(setCells(cells));
+        dispatch(setLivesCells(livesCells));
     }
   }
 }

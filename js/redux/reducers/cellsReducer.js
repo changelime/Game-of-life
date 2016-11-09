@@ -11,6 +11,10 @@ export default function(state = {}, action){
             return Object.assign({}, state, {
                 size: action.payload.size
             });
+        case actions.SET_LIVES_CELLS.type:
+            return Object.assign({}, state, {
+                livesCells: [...action.payload.livesCells]
+            });
         default: return state;
     }
 }

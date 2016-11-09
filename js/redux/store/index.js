@@ -4,10 +4,11 @@ import reducer from "reducers/cellsReducer.js";
 const logger = createLogger();
 export default createStore(reducer,{
                         size: {
-                            col: 20,
-                            row: 20
+                            col: 200,
+                            row: 200
                         },
-                        cells: []
+                        cells: [],
+                        livesCells: []
                     },
                     applyMiddleware(logger)
                 );
