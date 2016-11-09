@@ -4,8 +4,8 @@ import reducer from "reducers/cellsReducer.js";
 const logger = createLogger();
 export default createStore(reducer,{
                         size: {
-                            col: 50,
-                            row: 50
+                            col: 20,
+                            row: 20
                         },
                         cells: []
                     },

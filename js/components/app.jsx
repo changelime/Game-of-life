@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import {setCells} from "actions/index.js";
 import { createCells } from "utils/utils";
-// import CellMatrix from "components/cell-matrix";
 import CellMatrixCanvas from "components/cell-matrix-canvas";
 import CtrlPanel from "components/ctrl-panel";
 class App extends Component {
