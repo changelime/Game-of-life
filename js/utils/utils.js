@@ -52,14 +52,12 @@ export function getLivesCount(cells){
         return cell.el === STATUS_LIVE ? lives + 1 : lives;
     }, 0);
 };
-export function getCoorStr(coor){
-    return `x:${coor.x},y:${coor.y}`;
-};
+
 export function nextStepOfcells(cells, livesCells, size){
     let {row, col} = size;
     let newCells = [...cells];
     let newLivecells = [];
-    let calculated = {};//标记已经计算过的节点
+    let calculated = [];//标记已经计算过的节点
     for( let i = 0; i < livesCells.length; i++ )
     {
         let cell = livesCells[i];
@@ -75,13 +73,15 @@ export function nextStepOfcells(cells, livesCells, size){
         }
         
         neighbors.filter((e)=>{
-            return e.el === STATUS_DIE && !calculated[getCoorStr(e.coor)];//确保遍历道德周围邻居都是死亡而且没有被标记过
+            let {x, y} = e.coor;
+            let index = y * col + x;
+            return e.el === STATUS_DIE && !calculated[index];//确保遍历道德周围邻居都是死亡而且没有被标记过
         }).forEach((neighbor)=>{
             let coor = neighbor.coor;
             let {x, y} = coor;
             let index = y * col + x;
             let lives = getLivesCount(getNeighbors(cells, x, y, size));
-            calculated[getCoorStr(coor)] = true;//标记已经计算过的节点
+            calculated[index] = true;//标记已经计算过的节点
             if(lives === 3 )
             {                
                 newLivecells.push(coor);
