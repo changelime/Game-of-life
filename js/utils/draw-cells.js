@@ -1,5 +1,6 @@
 import Node from "./node";
 import {STATUS_DIE, STATUS_LIVE} from "utils/cell-status.js";
+import {getCoorByIndex} from "utils/utils.js";
 function lineTo(context, start, end, color){
 	context.save();
 	context.strokeStyle = color ? color : "rgba(0, 0, 255, 0.5)";
@@ -42,8 +43,9 @@ var drawCells = function drawCells(el, cells, size) {
             y: y
         });
     }
-    cells.forEach((cell)=>{
-        let node = new Node((cell.x + 0.5) * w, (cell.y + 0.5) * h, radius);
+    cells.forEach((cellIndex)=>{
+        let {x, y} = getCoorByIndex(cellIndex, size);
+        let node = new Node((x + 0.5) * w, (y + 0.5) * h, radius);
         node.setColor("yellowgreen");
         node.draw(context);
     });

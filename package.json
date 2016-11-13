@@ -6,7 +6,8 @@
   "scripts": {
     "test": "karma start karma.config.js",
     "start": "webpack-dev-server --inline",
-    "build": "webpack --config webpack.min.js"
+    "build": "webpack --config webpack.min.js",
+    "travis": "karma start karma.config.js --single-run"
   },
   "author": "change li",
   "license": "MIT",

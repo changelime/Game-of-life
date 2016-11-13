@@ -1,15 +1,22 @@
 var expect = require("chai").expect;
 var actions = require("../../js/redux/actions/index.js");
 var reducer = require("../../js/redux/reducers/cellsReducer.js").default;
-
+var cellStatus = require("../../js/utils/cell-status");
+const STATUS_DIE = cellStatus.STATUS_DIE;
+const STATUS_LIVE = cellStatus.STATUS_LIVE;
 describe("cellsReducer test", function() {
-    let defaultState = {
+    const defaultState = {
         size: {
-            col: 5,
-            row: 5
+            col: 4,
+            row: 4
         },
-        cells: [],
-        livesCells: []
+        cells: [
+				STATUS_LIVE, STATUS_LIVE, STATUS_DIE, STATUS_DIE, 
+				STATUS_LIVE, STATUS_LIVE, STATUS_DIE, STATUS_DIE, 
+				STATUS_DIE, STATUS_DIE, STATUS_LIVE, STATUS_LIVE, 
+				STATUS_DIE, STATUS_DIE, STATUS_LIVE, STATUS_LIVE
+		],
+		livesCells: [0, 1, 4, 5, 10, 11, 14, 15]
     };
     it("Input a empty action return default state", function() {
         let newState = reducer(defaultState, {});
@@ -17,12 +24,20 @@ describe("cellsReducer test", function() {
 	});
     it("Input a SET_SIZE action and return a new state", function() {
         let size = {
-            col: 50,
-            row: 50
-        }
+            col: 5,
+            row: 5
+        };
         let newState = reducer(defaultState, actions.setSize(size));
         expect(newState).to.eql(Object.assign({}, defaultState, {
-            size: size
+            size: size,
+            cells: [
+                    STATUS_LIVE, STATUS_LIVE, STATUS_DIE, STATUS_DIE, STATUS_DIE, 
+                    STATUS_LIVE, STATUS_LIVE, STATUS_DIE, STATUS_DIE, STATUS_DIE,
+                    STATUS_DIE, STATUS_DIE, STATUS_LIVE, STATUS_LIVE, STATUS_DIE,
+                    STATUS_DIE, STATUS_DIE, STATUS_LIVE, STATUS_LIVE, STATUS_DIE,
+                    STATUS_DIE, STATUS_DIE, STATUS_DIE, STATUS_DIE, STATUS_DIE,
+            ],
+            livesCells: [0, 1, 5, 6, 12, 13, 17, 18]
         }));
 	});
     it("Input a SET_CELLS action and return a new state", function() {

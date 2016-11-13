@@ -56,16 +56,7 @@ describe("nextStepOfcells test", function() {
 				STATUS_DIE, STATUS_DIE, STATUS_LIVE, STATUS_LIVE, 
 				STATUS_DIE, STATUS_DIE, STATUS_LIVE, STATUS_LIVE
 		],
-		livesCells: [
-			{x: 0, y: 0},
-			{x: 1, y: 0},
-			{x: 0, y: 1},
-			{x: 1, y: 1},
-			{x: 2, y: 2},
-			{x: 3, y: 2},
-			{x: 2, y: 3},
-			{x: 3, y: 3}
-		]
+		livesCells: [0, 1, 4, 5, 10, 11, 14, 15]
 	};
 	let nextStep = {
 		cells: [
@@ -74,14 +65,7 @@ describe("nextStepOfcells test", function() {
 				STATUS_DIE, STATUS_DIE, STATUS_DIE, STATUS_LIVE, 
 				STATUS_DIE, STATUS_DIE, STATUS_LIVE, STATUS_LIVE
 		],
-		livesCells: [
-			{x: 0, y: 0},
-			{x: 1, y: 0},
-			{x: 0, y: 1},
-			{x: 3, y: 2},
-			{x: 2, y: 3},
-			{x: 3, y: 3}
-		]
+		livesCells: [0, 1, 4, 11, 14, 15]
 	};
 	it("Return a right array( Pattern Beacon (period 1 of 2) )", function() {		
 		let cells = utils.nextStepOfcells(original.cells, original.livesCells, size);
@@ -90,16 +74,7 @@ describe("nextStepOfcells test", function() {
 	it("Return a right array( Pattern Beacon (period 2 of 2) )", function() {
 		let cells = utils.nextStepOfcells(nextStep.cells, nextStep.livesCells, size);
 		expect(cells).to.eql(Object.assign({}, original, {
-			livesCells: [
-			{x: 0, y: 0},
-			{x: 1, y: 1},
-			{x: 1, y: 0},
-			{x: 0, y: 1},
-			{x: 3, y: 2},
-			{x: 2, y: 2},
-			{x: 2, y: 3},
-			{x: 3, y: 3}
-		]
+			livesCells: [0, 5, 1, 4, 11, 10, 14, 15]
 		}));
 	});
 });
